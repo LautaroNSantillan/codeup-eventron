@@ -33,9 +33,17 @@ public class EventronUser {
 
     @ManyToMany(mappedBy = "following")
     private Set<EventronUser> followers;
-    @OneToMany(mappedBy = "createdByUser")
-    private Set<Comment> comments;
 
+    @ManyToMany
+    @JoinTable(
+            name = "goer_event",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private Set<Item> goingToEvents;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Item> items;
 
     public EventronUser(String firstName, String lastName, String username) {
         this.firstName = firstName;

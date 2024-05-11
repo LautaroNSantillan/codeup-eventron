@@ -2,20 +2,25 @@ package com.mindhub.eventron.models;
 
 import com.mindhub.eventron.enums.ItemType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
+@Entity@Getter@Setter@NoArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String title;
     private String body;
-    private Integer userId;
+    @ManyToMany
+    @JoinColumn(name="user_id")
+    private EventronUser user;
     private LocalDateTime createdAt;
     @ManyToMany
     @JoinTable(name = "post_like",
@@ -31,4 +36,6 @@ public class Item {
     private ItemMedia media;
     @Enumerated(EnumType.STRING)
     private ItemType type;
+    @ManyToMany(mappedBy = "goingToEvents")
+    private Set<EventronUser> eventGoers;
 }

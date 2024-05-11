@@ -1,10 +1,16 @@
 package com.mindhub.eventron.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.catalina.User;
 
 import java.time.LocalDateTime;
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
